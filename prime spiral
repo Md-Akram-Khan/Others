@@ -1,0 +1,68 @@
+/*
+Problem link: https://toph.co/p/prime-spiral
+*/
+#include <bits/stdc++.h>
+#define cceil(a, b)             (((a) + (b) - 1) / (b)) 
+using namespace std;
+int prime[241967];
+vector<int> primelist; 
+void bitWiseSieve(int n)
+{
+    int limit = sqrt(n) + 1;
+	for (int i = 3; i <= limit; i += 2)
+	     if (!(prime[i/64] & (1 << ((i >> 1) & 31))))
+            for (int j = i * i, k = i << 1; j < n; j += k)
+                prime[j/64] |= (1 << ((j >> 1) & 31));
+    primelist.push_back(2);
+    for(int i = 3; i < 15485864; i += 2)
+        if(!(prime[i/64] & (1 << ((i >> 1) & 31))))
+            primelist.push_back(i);
+}
+int main()
+{
+    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    int n = 15485864;
+	bitWiseSieve(n);
+	int m, r;
+    cin>>m>>r;
+    vector<vector<int>> ans(m, vector<int> (m));
+    int left = 0, right = m - 1;
+    int top = 0, bottom = m - 1;
+    int k;
+    if(m & 1) k = 0;
+    else k = 1;
+    int j = m * m - 1;
+    while(top <= bottom and left <= right)
+    {
+        if(k == 1)
+        {
+            for(int i = left; i <= right; i++)
+                ans[top][i] = primelist[j], j--;
+            top++;
+            for(int i = top; i <= bottom; i++)
+                ans[i][right] = primelist[j], j--;
+            right--;
+        }
+        if(k >= 0)
+        {
+            if(top <= bottom){
+            for(int i = right; i >= left; i--)
+                ans[bottom][i] = primelist[j], j--;
+            bottom--;
+            }
+            if(left <= right){
+                for(int i = bottom; i >= top; i--)
+                    ans[i][left] = primelist[j], j--;
+                left++;
+            }
+            k = 1;
+        }
+    }
+    for(int i = 0; i < r; i++)
+    {
+        int d, e;
+        cin>>d>>e;
+        d--, e--;
+        cout<<ans[d][e]<<endl;
+    }
+}
