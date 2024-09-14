@@ -1,0 +1,93 @@
+/*
+problem link: https://codeforces.com/problemset/problem/1829/G
+*/
+#include<bits/stdc++.h>
+using namespace std;
+#define nl                      "\n"
+#define ff                      first
+#define ss                      second
+#define ll                      long long int
+#define pb                      push_back
+#define cceil(a, b)             (((a) + (b) - 1) / (b))
+#define sqr(x)                  ((x)*(x))
+#define pi                      acos(-1)
+#define gcd(x,y)                __gcd(x,y)
+#define lcm(x,y)                ((x * y) / gcd(x,y))
+#define all(x)                  (x).begin(), (x).end()
+#define sorta(x)                sort(all(x))
+#define sortd(x)                sort(all(x), greater<int>())
+#define max3(x,y,z)             max({x, y, z})
+#define max4(x,y,z,zz)          max({x, y, z, zz})
+#define maxm(x)                 *max_element(all(x))
+#define min3(x,y,z)             min({x, y, z})
+#define min4(x,y,z,zz)          min({x, y, z, zz})
+#define minm(x)                 *min_element(all(x))
+#define valid(nx,ny,row,col)    (nx >= 1 && nx <= row && ny >= 1 && ny <= col)
+#define yes                     cout << "Yes" << nl
+#define yess                    cout << "YES" << nl
+#define no                      cout << "No" << nl
+#define noo                     cout << "NO" << nl
+#define mone                    cout << -1 << nl
+#define alice                   cout << "Alice" << nl
+#define bob                     cout << "Bob" << nl
+#define multiple_test           int test; cin >> test; while(test--) { solve(); }
+#define single_test             solve();
+#define space                   << ' ' <<
+#define bericade                cout<<"-----------------------"<<nl
+
+const int MOD = 1e9 + 7;
+
+using pii       = pair<int, int>;
+using pll       = pair<ll, ll>;
+using mi        = map<int, int>;
+using mpi       = map<pair<int, int>, int>;
+using vi        = vector<int>;
+using vl        = vector<ll>;
+using vvi       = vector<vi>;
+using vvl       = vector<vl>;
+using vpi       = vector<pii>;
+using vpl       = vector<pll>;
+using si        = set<int>;
+using msi       = multiset<int>;
+using qi        = queue<int>;
+using pqia      = priority_queue<int>;
+using pqid      = priority_queue<int, vector<int>, greater<int>>;
+
+/*------------------------------Graph Moves----------------------------*/
+// const int fx[]={+1,-1,+0,+0};             // 4 directions
+// const int fy[]={+0,+0,+1,-1};             // 4 directions
+// const int fx[]={+0,+0,+1,-1,-1,+1,-1,+1}; // Kings Move
+// const int fy[]={-1,+1,+0,+0,+1,+1,-1,-1}; // Kings Move
+// const int fx[]={-2, -2, -1, -1,  1,  1,  2,  2};  // Knights Move
+// const int fy[]={-1,  1, -2,  2, -2,  2, -1,  1}; // Knights Move
+/*---------------------------------------------------------------------*/
+const int sz = 1e6 + 1;
+ll a[1415][1415] = {};
+ll ans[sz];
+void solve()
+{
+    int n;
+    cin>>n;
+    cout<<ans[n]<<nl;
+}
+int main()
+{
+    ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+    ll num = 1;
+    for(int i = 2; i <= 1415; i++)
+    {
+        for(int j = i - 1; j >= 1; j--)
+        {
+            a[j][i - j] = a[j - 1][i - j] + a[j][i - j - 1] -
+            a[j - 1][i - j - 1] + num * num;
+            ans[num] = a[j][i - j];
+            num++;
+            if(num > 1e6)
+                break;
+        }
+    }
+    multiple_test
+    //single_test
+    return 0;
+}
